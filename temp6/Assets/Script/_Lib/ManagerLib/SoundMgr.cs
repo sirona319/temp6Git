@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.Scripting;
 using UnityEngine.UI;
 
@@ -40,7 +41,7 @@ public class SoundManager : Singleton<SoundManager>
 
             source.clip = clip;
             source.volume = 0;
-           // source.outputAudioMixerGroup = targetMixerGroup;
+            source.outputAudioMixerGroup = targetMixerGroup;
             source.playOnAwake = false;
             sourceLists.Add(source);
             //DontDestroyOnLoad(this.gameObject);
@@ -71,7 +72,7 @@ public class SoundManager : Singleton<SoundManager>
     {
         const float OUTTIME = 0.3f;
         const float INTIME = 2f;
-        const float VOLUME = 0.03f;
+        //const float VOLUME = 0.03f;
         //Debug.Log(sourceLists[0].name);
         foreach (AudioSource sl in sourceLists)
         {
@@ -79,7 +80,7 @@ public class SoundManager : Singleton<SoundManager>
             if (sl.clip == clip)
             {
                 sl.Play();
-                sl.DOFade(VOLUME, INTIME);
+                sl.DOFade(bgmVol, INTIME);
                 Debug.Log("testplay");
             }
             else
@@ -104,8 +105,7 @@ public class SoundManager : Singleton<SoundManager>
         //const float volumeMin = 80f;
         audioMixer.SetFloat("MasterVolume", value);
         //isSoundOn = false;
-
-
+        
         //else
         //{
         //    const float volumeMax = 0f;
@@ -141,9 +141,9 @@ public class SoundManager : Singleton<SoundManager>
 
 
 
-        const float OUTTIME = 0.3f;
-        const float INTIME = 2f;
-        const float VOLUME = 0.1f;
+        //const float OUTTIME = 0.3f;
+        //const float INTIME = 2f;
+        //const float VOLUME = 0.1f;
         //if (type == BGMType.title)
         //{
 

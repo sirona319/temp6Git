@@ -5,12 +5,15 @@ public class メモ : MonoBehaviour
 
     [TextArea(3, 20)]
     public string memo;
-
+    
     public LayerMask mask;
     /*
     パラメーターなど説明
     https://x.gd/vUvxo
+    ステータスは状態
+    パラメータは数値
 
+    soundMgr SEは別にする？　オブジェクトごと
 
 
 

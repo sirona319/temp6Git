@@ -11,7 +11,7 @@ public class NarrationAsset : PlayableAsset
     [TextArea(1, 20)]
     public string TextErea;
     public bool isTextPause=true;
-    public NarrationBehaviour narration = new NarrationBehaviour();
+    public NarrationBehaviour narration = new();
 
     //public TMP_Text mText;
     public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)

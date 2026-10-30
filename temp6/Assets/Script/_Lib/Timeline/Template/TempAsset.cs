@@ -5,7 +5,7 @@ using UnityEngine.Playables;
 public class TempAsset : PlayableAsset
 {
 
-    public TempBehaviour temp = new TempBehaviour();
+    public TempBehaviour temp = new();
 
 
     public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)

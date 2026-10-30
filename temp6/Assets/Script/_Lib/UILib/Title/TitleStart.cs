@@ -8,12 +8,12 @@ public class TitleStart : MonoBehaviour
     //[SerializeField] string BottuonNameTwo;
     //[SerializeField] string BottuonNameThree;
 
-    bool isSelect = false;
+   // bool isSelect = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        isSelect = false;
+     //   isSelect = false;
     }
 
     // Update is called once per frame
