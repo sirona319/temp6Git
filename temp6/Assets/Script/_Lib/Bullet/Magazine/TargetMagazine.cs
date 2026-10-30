@@ -1,26 +1,20 @@
 ﻿using UnityEngine;
 using static TargetSet;
+using static UnityEditor.PlayerSettings;
 
 public class TargetMagazine : BaseMagazine
 {
-    TargetSet targetSet;
-    CreateBullet createBullet;
-
-    [SerializeField] Transform target;
+    Vector3 tPos;
 
     float intervalTime = 0f; //ExitでintervalTimeMaxにする？
     [SerializeField] float intervalTimeMax = 1f;
 
     [SerializeField] GameObject bullet;
 
+    [SerializeField] Transform targetTrans;
     void Start()
     {
-        targetSet = GetComponent<TargetSet>();
-        target = targetSet.SetVec(target);
-
-        createBullet = GetComponent<CreateBullet>();
-
-        intervalTime = intervalTimeMax;
+        tPos = TargetSet.I.GetTargetTrans(targetTrans, gameObject).position;
     }
 
     public override void MagazineEnter()
@@ -43,10 +37,10 @@ public class TargetMagazine : BaseMagazine
     void Shot()
     {
         Debug.Log("Shot");
-        Vector2 direction = target.position - transform.position;
+        Vector2 direction = tPos - transform.position;
         float pAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;//ターゲットへの角度を取得する
 
-        createBullet.BulletAtk(pAngle, transform.position, transform.rotation, bullet); //Target渡す
+        BulletAtk(pAngle, transform.position, transform.rotation, bullet); //Target渡す
     }
 
 

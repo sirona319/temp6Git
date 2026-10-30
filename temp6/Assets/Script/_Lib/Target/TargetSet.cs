@@ -1,6 +1,93 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+
+public class TargetSet : Singleton<TargetSet>
+{
+
+    public enum Target
+    {
+        Local,
+        Player,
+        Relative,
+        //斜め　四つ　
+        //一番近いエネミーなど？　遠い敵　レーザー
+    }
+
+    [SerializeField] GameObject TargetVecObject;
+
+    public Transform GetTargetTrans(Transform target, GameObject go)
+    {
+
+        if (target.GetComponent<TargetPoint>().target == Target.Local)
+        {
+            return target;
+
+        }
+        return TargetSelect(target.GetComponent<TargetPoint>().target, target.position, go);
+
+    }
+
+    public List<Transform> SetPointArray(List<Transform> pointList, GameObject go)
+    {
+        //生成位置から見た固定座標を使用するときに使う
+
+        List<Transform> tArrayPoints = new();
+        foreach (var tChild in pointList)
+        {
+            var tPoint = tChild.GetComponent<TargetPoint>();
+            if (tPoint.target == Target.Local)
+            {
+                return pointList;
+                //Debug.Log("TargetPointが設定されていない");
+            }
+
+            var t = TargetSelect(tPoint.target, tChild.position, go);
+            tArrayPoints.Add(t);
+
+        }
+
+        return tArrayPoints;
+
+    }
+
+    Transform TargetSelect(Target type, Vector3 t, GameObject go)
+    {
+        //一番近いエネミーなど？　遠い敵　レーザー武器用など（Player）
+        //Instanteiateで生成することで子階層から外す　座標ずれを防ぐため
+        switch (type)
+        {
+            case Target.Player:
+                var p = GameObject.FindWithTag(Target.Player.ToString());
+                if (p == null)
+                {
+                    Debug.Log("プレイヤーが存在しない");
+                    return null;
+                }
+
+                return p.transform;
+
+            case Target.Relative://固定
+                //var goRelative = (GameObject)Resources.Load(TargetVecObject.name);
+                //if (goRelative == null) Debug.Log("Prefab ターゲット用オブジェクトが存在しない");
+                var objRelative = Instantiate(TargetVecObject, t, transform.rotation);
+                objRelative.GetComponent<SetLinkObj>().linkObj = go;
+                return objRelative.transform;
+
+            default:
+                return null;
+
+        }
+
+    }
+
+}
+
+
+
+/*using System.Collections.Generic;
+using UnityEngine;
+
 public class TargetSet : MonoBehaviour
 {
     public enum Target
@@ -278,3 +365,5 @@ public class TargetSet : MonoBehaviour
 
     //}
 }
+*/
+

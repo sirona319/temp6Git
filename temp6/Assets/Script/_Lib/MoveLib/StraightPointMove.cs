@@ -18,22 +18,15 @@ public class StraightPointMove : BaseMove
     //protected ReactiveProperty<bool> IsMoveEnd = new ReactiveProperty<bool>(false);
     //public ReactiveProperty<bool[]> IsPointMoveEnd = new ReactiveProperty<bool[]>(new bool[] {false,false });
 
-    protected TargetSet targetSet;
 
     //Rigidbody rb2;
 
     public override void Initialize()
     {
 
-        //base.Initialize();
-        //if (GetComponent<TargetSet>() == null)Debug.Log("TargetSetが未設定;");
-        if (gameObject.GetComponent<TargetSet>()!=null)
-        {
-            targetSet = GetComponent<TargetSet>();
-            moveTransLists = targetSet.SetPointArray(moveTransLists);
-        }
+        moveTransLists = TargetSet.I.SetPointArray(moveTransLists, gameObject);
 
-        //rb2=GetComponent<Rigidbody>();
+
         direction = (moveTransLists[targetNo].position - transform.position).normalized;
 
         transform.rotation = Quaternion.FromToRotation(Vector3.up, direction);

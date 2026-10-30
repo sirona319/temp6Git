@@ -152,6 +152,17 @@ public static class MyLib
 
     #region 回転
 
+
+
+    public static Quaternion GetAngleRotationFuncs(Vector3 tPos, Transform myTrans, float rotSpeed)
+    {
+        float targetAngle = GetTargetAngle2D(tPos, myTrans);
+
+        var velocity = SetVelocityAngle2D(targetAngle);
+
+        return TargetRotation2DZOnlyLerp(myTrans, velocity, rotSpeed); ;
+    }
+
     public static Quaternion TargetRotation(Transform target, Transform myTrans, float interpolant, Vector3 axis)
     {
         //方向を向く回転の処理
@@ -163,7 +174,8 @@ public static class MyLib
 
     }
 
-    public static Quaternion TargetRotation(Vector3 targetPos, Transform myTrans, float interpolant,Vector3 axis)
+    //Prefabをつかい内部のオブジェクトを前方方向に向かせて  transform.forward　で使用する方法もある
+    public static Quaternion TargetRotation(Vector3 targetPos, Transform myTrans, float interpolant, Vector3 axis)
     {
         //方向を向く回転の処理
         var dir = targetPos - myTrans.position;
@@ -171,6 +183,17 @@ public static class MyLib
         var lookAtRotation = Quaternion.LookRotation(dir, axis);
 
         return Quaternion.Lerp(myTrans.rotation, lookAtRotation, Time.deltaTime * interpolant);
+
+    }
+
+    public static Quaternion TargetRotationSprite3D(Vector3 targetPos, Transform myTrans, float interpolant)
+    {
+        //方向を向く回転の処理
+        var dir = targetPos - myTrans.position;
+
+        //var lookAtRotation = Quaternion.LookRotation(dir, axis);
+        Quaternion targetRot = Quaternion.LookRotation(dir) * Quaternion.Euler(0, -90, 0);
+        return Quaternion.Lerp(myTrans.rotation, targetRot, Time.deltaTime * interpolant);
 
     }
 
@@ -186,7 +209,7 @@ public static class MyLib
         return Quaternion.Lerp(myTrans.rotation, targetRotation, interpolant * Time.deltaTime);
     }
 
-    public static Quaternion GetAngleRotationFuncs(Vector3 tPos, Transform myTrans, float rotSpeed)
+    public static Quaternion GetAngleRotationFunc2D(Vector3 tPos, Transform myTrans, float rotSpeed)
     {
         float targetAngle = GetTargetAngle2D(tPos, myTrans);
 

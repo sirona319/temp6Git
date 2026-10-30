@@ -31,22 +31,22 @@ public class TwoCarveMagazine : BaseMagazine
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         //createBullet.BulletAtk(angle + 0);
-        var rBullet = createBullet.BulletAtk(angle + ONEWEYLENGTH, transform.position, transform.rotation);
-        //createBullet.BulletAtk(angle + TWOWEYLENGTH);
-        var lBullet = createBullet.BulletAtk(angle - ONEWEYLENGTH, transform.position, transform.rotation);
+        var rBullet = BulletAtk(angle + ONEWEYLENGTH, transform.position, transform.rotation);
+        //BulletAtk(angle + TWOWEYLENGTH);
+        var lBullet = BulletAtk(angle - ONEWEYLENGTH, transform.position, transform.rotation);
 
 
         //バレットのタイプを上書き　他のモジュールは入る　消す仕様にする後々？？
-        createBullet.AddBulletType(rBullet.GetComponent<BaseBullet>(), ModuleClassName.CarveModule.ToString());
-        createBullet.AddBulletType(lBullet.GetComponent<BaseBullet>(), ModuleClassName.CarveModule.ToString());
+        //AddBulletType(rBullet.GetComponent<BaseBullet>(), ModuleClassName.CarveModule.ToString());
+        //AddBulletType(lBullet.GetComponent<BaseBullet>(), ModuleClassName.CarveModule.ToString());
 
-        const float carveVal = 10f;
-        rBullet.GetComponent<CarveModule>().SetAngle(-carveVal);
-        lBullet.GetComponent<CarveModule>().SetAngle(carveVal);
+        //const float carveVal = 10f;
+        //rBullet.GetComponent<CarveModule>().SetAngle(-carveVal);
+        //lBullet.GetComponent<CarveModule>().SetAngle(carveVal);
 
 
 
-        //createBullet.BulletAtk(angle + -TWOWEYLENGTH);
+        //BulletAtk(angle + -TWOWEYLENGTH);
 
 
         //AngleShot(playerAngle, 0);

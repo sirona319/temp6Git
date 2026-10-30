@@ -17,7 +17,6 @@ public class StraightPointTargetMove : BaseMove
 
     //protected ReactiveProperty<bool> IsMoveEnd = new ReactiveProperty<bool>(false);
 
-    protected TargetSet targetSet;
 
     Transform player=null;
     bool isStart = false;
@@ -25,11 +24,7 @@ public class StraightPointTargetMove : BaseMove
 
     public override void Initialize()
     {
-        if (gameObject.GetComponent<TargetSet>()!=null)
-        {
-            targetSet = GetComponent<TargetSet>();
-            moveTransLists = targetSet.SetPointArray(moveTransLists);
-        }
+        moveTransLists = TargetSet.I.SetPointArray(moveTransLists, gameObject);
 
         direction = (moveTransLists[targetNo].position - transform.position).normalized;
 

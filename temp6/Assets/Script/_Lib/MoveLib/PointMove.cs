@@ -139,15 +139,13 @@ public class PointMove : BaseMove
     protected int targetNo = 0;
     //Rigidbody2D rb2;
 
-    TargetSet targetSet;
+    Rigidbody2D rb2;
 
 
     public override void Initialize()
     {
-        //rb2 = GetComponent<Rigidbody2D>();
-
-        targetSet = GetComponent<TargetSet>();
-        moveTrans = targetSet.SetPointArray(moveTrans);     //配列を作成
+        rb2 = GetComponent<Rigidbody2D>();
+        moveTrans = GetComponent<TargetSet>().SetPointArray(moveTrans, gameObject);    //配列を作成
     }
 
     public override void MoveEnter()

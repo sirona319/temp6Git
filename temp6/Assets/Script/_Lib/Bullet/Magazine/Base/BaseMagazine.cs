@@ -39,9 +39,9 @@ public abstract class BaseMagazine : MonoBehaviour
 
     public virtual void Initialize() { }
 
-    public abstract void MagazineEnter();
+    public virtual void MagazineEnter() { }
 
-    public abstract void MagazineUpdate();
+    public virtual void MagazineUpdate() { }
 
     //public void TargetSet(ITarget it, BulletTarget bulletTarget, GameObject go)
     //{
@@ -79,4 +79,34 @@ public abstract class BaseMagazine : MonoBehaviour
     //    }
 
     //}
+
+    [SerializeField] protected float bulletSpeed = 5f;
+
+    [SerializeField] PoolControl poolCtr;
+    protected GameObject BulletAtk(float angle, Vector3 pos, Quaternion rot, GameObject charaBullet = null)
+    {
+
+        if (charaBullet == null)
+        {
+            Debug.Log("charaBullet NULL");
+            return null;
+
+
+        }
+
+        charaBullet.transform.position = pos;
+        charaBullet.transform.rotation = rot;
+        var bullet = Instantiate(charaBullet);
+
+
+        if (bullet.GetComponent<NormalBullet>() != null)
+        {
+            var normalBullet = bullet.GetComponent<NormalBullet>();
+            normalBullet.SetSpeed(bulletSpeed);
+            normalBullet.angle = angle;
+            normalBullet.BulletInit();
+        }
+
+        return bullet;
+    }
 }

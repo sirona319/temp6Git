@@ -14,8 +14,8 @@ public class EreaLimitBullet : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        targetSet = GetComponent<TargetSet>();
-        target = targetSet.SetVec(target);
+       // targetSet = GetComponent<TargetSet>();
+       // target = targetSet.SetVec(target);
     }
 
     // Update is called once per frame

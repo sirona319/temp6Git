@@ -48,14 +48,14 @@ public abstract class BaseMove : MonoBehaviour
         //    rb3 = GetComponent<Rigidbody>();
     }
 
-    public abstract void MoveEnter();
+    public virtual void MoveEnter() { }
     public virtual void MoveExit()
     {
 
     }
 
 
-    public abstract void MoveUpdate();
+    public virtual void MoveUpdate() { }
 
 
     //public IEnumerator ExCoroutine(float seconds, Action action)
