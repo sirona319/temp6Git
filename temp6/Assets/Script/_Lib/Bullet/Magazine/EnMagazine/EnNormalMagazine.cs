@@ -22,7 +22,10 @@ public class EnNormalMagazine : BaseMagazine
             intervalTime = intervalTimeMax;
 
             if(GetComponent<AudioSource>() != null)
-            MyLib.MyPlayOneSound(soundPath, gameObject.GetComponent<AudioSource>());//水滴
+                MyLib.MyPlayOneSound(soundPath, gameObject.GetComponent<AudioSource>());//水滴
+
+
+
             Shot();
         }
 

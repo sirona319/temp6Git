@@ -5,7 +5,6 @@ public class EreaLimitBullet : MonoBehaviour
 {
     [SerializeField] float debuglen = 0;
 
-    TargetSet targetSet;
     [SerializeField] Transform target;
 
     float targetLen = 0;

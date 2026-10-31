@@ -81,7 +81,7 @@ public class SoundManager : Singleton<SoundManager>
             {
                 sl.Play();
                 sl.DOFade(bgmVol, INTIME);
-                Debug.Log("testplay");
+                Debug.Log("testplayBGM");
             }
             else
             {

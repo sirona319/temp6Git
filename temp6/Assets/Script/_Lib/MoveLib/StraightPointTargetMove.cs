@@ -24,13 +24,13 @@ public class StraightPointTargetMove : BaseMove
 
     public override void Initialize()
     {
-        moveTransLists = TargetSet.I.SetPointArray(moveTransLists, gameObject);
+        transform.DetachChildren();
 
         direction = (moveTransLists[targetNo].position - transform.position).normalized;
 
         transform.rotation = Quaternion.FromToRotation(Vector3.up, direction);
 
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        player = GameObject.FindWithTag("Player")?.transform;
     }
 
     public override void MoveEnter()

@@ -19,7 +19,7 @@ public class SpriteMove : MonoBehaviour
 
     void Start()
     {
-
+        transform.DetachChildren();
         //moveTrans = TargetSet.I.SetPointArray(moveTrans, gameObject);
     }
 

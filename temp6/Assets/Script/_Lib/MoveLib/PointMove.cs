@@ -145,7 +145,7 @@ public class PointMove : BaseMove
     public override void Initialize()
     {
         rb2 = GetComponent<Rigidbody2D>();
-        moveTrans = GetComponent<TargetSet>().SetPointArray(moveTrans, gameObject);    //配列を作成
+        transform.DetachChildren();
     }
 
     public override void MoveEnter()
