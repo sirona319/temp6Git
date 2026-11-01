@@ -59,6 +59,17 @@ public class TitleStart : MonoBehaviour
             // }
         }
 
+
+
+
+
+
+
+
+
+
+
+
         //const int LEFT = 0;
         //if (!Input.GetMouseButtonDown(LEFT)) return;
         if (!Mouse.current.leftButton.wasPressedThisFrame) return;
