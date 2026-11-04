@@ -122,6 +122,9 @@ public class SceneChangeUi : MonoBehaviour
         MyLib.MyPlayOneSound("SE/決定ボタンを押す12", volume, se);
     }
 
+
+
+
     //[SerializeField] FadeScene fadeScene;
     //public void SelectStart()
     //{

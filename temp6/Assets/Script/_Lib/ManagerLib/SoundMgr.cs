@@ -1,32 +1,24 @@
 ﻿using DG.Tweening;
-using NUnit.Framework;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Rendering;
-using UnityEngine.Scripting;
-using UnityEngine.UI;
 
 public class SoundManager : Singleton<SoundManager>
 {
-    public enum BGMType
-    {
-        easy,
-        normal,
-        hard,
-    }
+    //public enum BGMType
+    //{
+    //    easy,
+    //    normal,
+    //    hard,
+    //}
 
-    AudioMixer audioMixer;
+    [SerializeField] AudioMixer audioMixer;
 
-    //bool isSoundOn = true;
     [SerializeField] float bgmVol=.03f;
     [SerializeField] AudioMixerGroup targetMixerGroup;
     [SerializeField]AudioClip[] clipList;
     [SerializeField] List<AudioSource> sourceLists=new ();
-    //[SerializeField] private AudioSource gameBGM;
-   // [SerializeField] private AudioSource titleBGM;
+
     [SerializeField] public AudioSource se;
     private void Awake()
     {
@@ -35,8 +27,6 @@ public class SoundManager : Singleton<SoundManager>
         foreach (AudioClip clip in clipList)
         {
 
-            //var source = gameObject.AddComponent<AudioSource>();
-
             var source = gameObject.AddComponent<AudioSource>();
 
             source.clip = clip;
@@ -44,28 +34,36 @@ public class SoundManager : Singleton<SoundManager>
             source.outputAudioMixerGroup = targetMixerGroup;
             source.playOnAwake = false;
             sourceLists.Add(source);
-            //DontDestroyOnLoad(this.gameObject);
         }
 
+
+        audioMixer = Resources.Load<AudioMixer>("AudioMixer");
+
+        if (!audioMixer)
+            audioMixer = Resources.Load<AudioMixer>("NewAudioMixer");
+        //オーディオミキサーはResourcesフォルダに作成する
+        //Debug.Log(audioMixer);
+
+        if (!audioMixer)
+            Debug.Log("オーディオミキサーが存在しない");
     }
     void Start()
     {
 
 
-        
-        audioMixer = Resources.Load<AudioMixer>("AudioMixer");
-
-        if (!audioMixer)
-            audioMixer = Resources.Load<AudioMixer>("NewAudioMixer");
-            //オーディオミキサーはResourcesフォルダに作成する
-            //Debug.Log(audioMixer);
-
-            if (!audioMixer)
-        Debug.Log("オーディオミキサーが存在しない");
 
 
+        //var m = PlayerPrefs.GetFloat("master", 0);
+        ////masterSl.value = m;
 
-        //sourceLists[0].Play();
+        //SetMaster(m);
+
+        //var b = PlayerPrefs.GetFloat("bgm", 0);
+        //SetMaster(b);
+
+        //var s = PlayerPrefs.GetFloat("se", 0);
+        //SetMaster(s);
+
     }
 
     public void BgmChange(AudioClip clip)
@@ -95,83 +93,69 @@ public class SoundManager : Singleton<SoundManager>
        // Debug.Log(clip.name);
     }
 
-    public void SetSoundMaster(float value)
+    public void SetMaster(float value)
     {
-        // if (audioMixer == null) audioMixer = Resources.Load<AudioMixer>("AudioMixer");
 
-        //フェード機能が欲しい
-
-
-        //const float volumeMin = 80f;
-        audioMixer.SetFloat("MasterVolume", value);
-        //isSoundOn = false;
-        
-        //else
-        //{
-        //    const float volumeMax = 0f;
-        //    audioMixer.SetFloat("MasterVolume", -volumeMax);
-        //    //isSoundOn = true;
-        //    Debug.Log("サウンドオフ");
-        //}
-
+        audioMixer.SetFloat("MasterVol", value);
+        PlayerPrefs.SetFloat("master", value);
+        PlayerPrefs.Save();
     }
 
-    //public void SetSoundSE(float value)
+    public void SetBgm(float value)
+    {
+
+        audioMixer.SetFloat("BgmVol", value);
+        PlayerPrefs.SetFloat("bgm", value);
+        PlayerPrefs.Save();
+    }
+
+    public void SetSe(float value)
+    {
+
+        audioMixer.SetFloat("SeVol", value);
+        PlayerPrefs.SetFloat("se", value);
+        PlayerPrefs.Save();
+    }
+
+    //public void BgmChange(BGMType type)
     //{
-    //    //if (audioMixer == null) audioMixer = Resources.Load<AudioMixer>("AudioMixer");
+    //    //ボリュームを下げていって　切り替える
 
-    //    audioMixer.SetFloat("SEVolume", value);
 
+
+
+
+    //    //const float OUTTIME = 0.3f;
+    //    //const float INTIME = 2f;
+    //    //const float VOLUME = 0.1f;
+    //    //if (type == BGMType.title)
+    //    //{
+
+
+    //    //   // titleBGM.DOFade(VOLUME, INTIME);
+    //    //    //gameBGM.DOFade(0f, OUTTIME);
+    //    //    //const float TARGETVOLUME = 0.04f;
+    //    //    //StartCoroutine(SoundFadeOnCoroutine(TARGETVOLUME, aquaBGM));
+    //    //    //StartCoroutine(SoundFadeOffCoroutine(groundBGM, 0.0001f));
+    //    //}
+    //    //else if (type == BGMType.game)
+    //    //{
+    //    //   // titleBGM.DOFade(0f, OUTTIME);
+    //    //    //gameBGM.DOFade(VOLUME, INTIME);
+    //    //    //StartCoroutine(SoundFadeOffCoroutine(aquaBGM));
+    //    //    //const float TARGETVOLUME = 0.01f;
+    //    //    //StartCoroutine(SoundFadeOnCoroutine(TARGETVOLUME, groundBGM, 0.0001f));
+    //    //}
     //}
 
-    //public void SetSoundSEOff()
+    //public IEnumerator SoundFadeOffCoroutine(AudioSource audio, float fadeSpeed = 0.001f)
     //{
-    //    //if (audioMixer == null) audioMixer = Resources.Load<AudioMixer>("AudioMixer");
 
-    //    const float volumeMin = -80f;
-    //    audioMixer.SetFloat("SEVolume", volumeMin);
+    //    while (audio.volume > 0)
+    //    {
+    //        audio.volume -= fadeSpeed;
+    //        yield return new WaitForSeconds(0.1f);
+    //    }
 
     //}
-
-    public void BgmChange(BGMType type)
-    {
-        //ボリュームを下げていって　切り替える
-
-
-
-
-
-        //const float OUTTIME = 0.3f;
-        //const float INTIME = 2f;
-        //const float VOLUME = 0.1f;
-        //if (type == BGMType.title)
-        //{
-
-
-        //   // titleBGM.DOFade(VOLUME, INTIME);
-        //    //gameBGM.DOFade(0f, OUTTIME);
-        //    //const float TARGETVOLUME = 0.04f;
-        //    //StartCoroutine(SoundFadeOnCoroutine(TARGETVOLUME, aquaBGM));
-        //    //StartCoroutine(SoundFadeOffCoroutine(groundBGM, 0.0001f));
-        //}
-        //else if (type == BGMType.game)
-        //{
-        //   // titleBGM.DOFade(0f, OUTTIME);
-        //    //gameBGM.DOFade(VOLUME, INTIME);
-        //    //StartCoroutine(SoundFadeOffCoroutine(aquaBGM));
-        //    //const float TARGETVOLUME = 0.01f;
-        //    //StartCoroutine(SoundFadeOnCoroutine(TARGETVOLUME, groundBGM, 0.0001f));
-        //}
-    }
-
-    public IEnumerator SoundFadeOffCoroutine(AudioSource audio, float fadeSpeed = 0.001f)
-    {
-
-        while (audio.volume > 0)
-        {
-            audio.volume -= fadeSpeed;
-            yield return new WaitForSeconds(0.1f);
-        }
-
-    }
 }
