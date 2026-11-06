@@ -3,13 +3,18 @@ using UnityEngine;
 
 public class Option : MonoBehaviour
 {
+    [SerializeField] GameObject optionBtn;
 
+    void Start()
+    {
+        //optionBtn.SetActive(false);
+    }
     public void ResetBtn()
     {
 
-        Screen.SetResolution(
-            1280, 720, false);
-
+       // Screen.SetResolution(
+       //     1280, 720, false);
+        GetComponent<Resolution>().Reset();
 
         GetComponent<SoundOption>().Reset();
 
@@ -18,16 +23,24 @@ public class Option : MonoBehaviour
 
     public void End()
     {
+
+        optionBtn.SetActive(false);
         //Escが押された時
         //if (Keyboard.current.escapeKey.wasPressedThisFrame)
         //{
-
+        PlayerPrefs.Save();
 
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+        //UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
 #else
-    Application.Quit();//ゲームプレイ終了
+    //Application.Quit();//ゲームプレイ終了
 #endif
         // }
+    }
+
+
+    public void OptionOn()
+    {
+        optionBtn.SetActive(true);
     }
 }

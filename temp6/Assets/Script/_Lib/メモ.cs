@@ -31,8 +31,11 @@ public class メモ : MonoBehaviour
 
 
 
+    ・UIエフェクト  
+    https://mob-sakai.github.io/UIEffect/
+    https://github.com/mob-sakai/UIEffect
 
-
+    https://github.com/mob-sakai/UIEffect.git
 
     ・パッケージ
     FadeCamera2.unitypackage

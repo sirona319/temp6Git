@@ -98,7 +98,7 @@ public class SoundManager : Singleton<SoundManager>
 
         audioMixer.SetFloat("MasterVol", value);
         PlayerPrefs.SetFloat("master", value);
-        PlayerPrefs.Save();
+      //  PlayerPrefs.Save();
     }
 
     public void SetBgm(float value)
@@ -106,7 +106,7 @@ public class SoundManager : Singleton<SoundManager>
 
         audioMixer.SetFloat("BgmVol", value);
         PlayerPrefs.SetFloat("bgm", value);
-        PlayerPrefs.Save();
+        //PlayerPrefs.Save();
     }
 
     public void SetSe(float value)
@@ -114,7 +114,7 @@ public class SoundManager : Singleton<SoundManager>
 
         audioMixer.SetFloat("SeVol", value);
         PlayerPrefs.SetFloat("se", value);
-        PlayerPrefs.Save();
+        //PlayerPrefs.Save();
     }
 
     //public void BgmChange(BGMType type)
